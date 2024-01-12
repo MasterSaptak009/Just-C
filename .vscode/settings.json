@@ -1,0 +1,22 @@
+{
+    "files.associations": {
+        "Stack_Using_Array.C": "cpp",
+        "Evaluation of Postfix Expression.C": "cpp",
+        "Implement two stacks using array.C": "cpp",
+        "Circular Queue Using Array.C": "cpp",
+        "Bubble Sort.C": "cpp",
+        "Optimized Bubble Sort.C": "cpp",
+        "Insertion Sort.C": "cpp",
+        "Selection Sort.C": "cpp",
+        "Linked List (Insertion at beginning and end).C": "cpp",
+        "Bubble_Sort.C": "cpp",
+        "Circular_Queue_Using_Array.C": "cpp",
+        "Evaluation_of_Postfix_Expression.C": "cpp",
+        "Implement_two_stacks_using_array.C": "cpp",
+        "Insertion_Sort.C": "cpp",
+        "Linked_List_(Insertion at beginning and end).C": "cpp",
+        "Optimized_Bubble_Sort.C": "cpp",
+        "Selection_Sort.C": "cpp",
+        "Linked_List_Insertion_at_beginning_and_end.C": "cpp"
+    }
+}
