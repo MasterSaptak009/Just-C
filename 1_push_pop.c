@@ -1,65 +1,55 @@
-#include <iostream>
-#include <cstdlib>
+//Write a program to implement Stack using array and two operations: push and pop
 
-#define MAX_SIZE 100
+#include <stdio.h>
 
-class Stack {
-private:
+#define MAX_SIZE 10
+
+struct Stack {
     int arr[MAX_SIZE];
     int top;
-
-public:
-    Stack() {
-        top = -1;
-    }
-
-    // Function to check if the stack is empty
-    bool isEmpty() {
-        return top == -1;
-    }
-
-    // Function to check if the stack is full
-    bool isFull() {
-        return top == MAX_SIZE - 1;
-    }
-
-    // Function to push an element onto the stack
-    void push(int value) {
-        if (isFull()) {
-            std::cout << "Stack overflow. Cannot push " << value << std::endl;
-            return;
-        }
-
-        arr[++top] = value;
-        std::cout << value << " pushed to the stack" << std::endl;
-    }
-
-    // Function to pop an element from the stack
-    int pop() {
-        if (isEmpty()) {
-            std::cout << "Stack underflow. Cannot pop from an empty stack" << std::endl;
-            exit(1); // Exiting the program as popping from an empty stack is an error
-        }
-
-        return arr[top--];
-    }
 };
 
+void initialize(struct Stack* stack) {
+    stack->top = -1;
+}
+
+int isEmpty(struct Stack* stack) {
+    return stack->top == -1;
+}
+
+int isFull(struct Stack* stack) {
+    return stack->top == MAX_SIZE - 1;
+}
+
+void push(struct Stack* stack, int value) {
+    if (!isFull(stack))
+        stack->arr[++stack->top] = value;
+}
+
+int pop(struct Stack* stack) {
+    return isEmpty(stack) ? -1 : stack->arr[stack->top--];
+}
+
+void display(struct Stack* stack) {
+    printf("Stack: ");
+    for (int i = 0; i <= stack->top; i++)
+        printf("%d ", stack->arr[i]);
+    printf("\n");
+}
+
 int main() {
-    Stack stack;
+    struct Stack stack;
+    initialize(&stack);
 
-    // Pushing elements onto the stack
-    stack.push(10);
-    stack.push(20);
-    stack.push(30);
+    push(&stack, 10);
+    push(&stack, 20);
+    push(&stack, 30);
 
-    // Popping elements from the stack
-    std::cout << stack.pop() << " popped from the stack" << std::endl;
-    std::cout << stack.pop() << " popped from the stack" << std::endl;
-    std::cout << stack.pop() << " popped from the stack" << std::endl;
+    display(&stack);
 
-    // Trying to pop from an empty stack (this will result in a stack underflow error)
-    // std::cout << stack.pop() << " popped from the stack" << std::endl;
+    printf("Popped: %d\n", pop(&stack));
+
+    display(&stack);
 
     return 0;
 }

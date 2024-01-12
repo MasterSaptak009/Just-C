@@ -1,72 +1,58 @@
-#include <iostream>
-#include <stack>
-#include <cmath>  // for pow function
+//Write a function for the evaluation of a given postfix expression.
 
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 
-bool isOperator(char ch) {
-    return (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^');
-}
+#define MAX_SIZE 100
 
-double applyOperator(double operand1, double operand2, char op) {
-    switch (op) {
-        case '+':
-            return operand1 + operand2;
-        case '-':
-            return operand1 - operand2;
-        case '*':
-            return operand1 * operand2;
-        case '/':
-            if (operand2 != 0) {
-                return operand1 / operand2;
-            } else {
-                cerr << "Error: Division by zero" << endl;
-                exit(EXIT_FAILURE);
+// Function to evaluate a postfix expression
+int evaluatePostfix(char postfix[]) {
+    int stack[MAX_SIZE];
+    int top = -1;
+
+    for (int i = 0; postfix[i] != '\0'; i++) {
+        if (isdigit(postfix[i])) {
+            // If the character is a digit, convert it to an integer and push onto the stack
+            stack[++top] = postfix[i] - '0';
+        } else {
+            // If the character is an operator, pop the top two elements, perform the operation, and push the result back
+            int operand2 = stack[top--];
+            int operand1 = stack[top--];
+
+            switch (postfix[i]) {
+                case '+':
+                    stack[++top] = operand1 + operand2;
+                    break;
+                case '-':
+                    stack[++top] = operand1 - operand2;
+                    break;
+                case '*':
+                    stack[++top] = operand1 * operand2;
+                    break;
+                case '/':
+                    stack[++top] = operand1 / operand2;
+                    break;
+                default:
+                    printf("Invalid operator: %c\n", postfix[i]);
+                    exit(EXIT_FAILURE);
             }
-        case '^':
-            return pow(operand1, operand2);
-        default:
-            cerr << "Error: Invalid operator" << endl;
-            exit(EXIT_FAILURE);
-    }
-}
-
-double evaluatePostfixExpression(const string& expression) {
-    stack<double> operands;
-
-    for (char ch : expression) {
-        if (isdigit(ch)) {
-            operands.push(ch - '0');  // Convert character digit to integer
-        } else if (isOperator(ch)) {
-            if (operands.size() < 2) {
-                cerr << "Error: Insufficient operands for operator " << ch << endl;
-                exit(EXIT_FAILURE);
-            }
-
-            double operand2 = operands.top();
-            operands.pop();
-
-            double operand1 = operands.top();
-            operands.pop();
-
-            double result = applyOperator(operand1, operand2, ch);
-            operands.push(result);
         }
     }
 
-    if (operands.size() != 1) {
-        cerr << "Error: Invalid expression" << endl;
-        exit(EXIT_FAILURE);
-    }
-
-    return operands.top();
+    // The final result should be at the top of the stack
+    return stack[top];
 }
 
 int main() {
-    string postfixExpression = "23*5+";  // Example postfix expression: 2 * 3 + 5
-    double result = evaluatePostfixExpression(postfixExpression);
+    char postfixExpression[MAX_SIZE];
 
-    cout << "Result of the postfix expression \"" << postfixExpression << "\" is: " << result << endl;
+    printf("Enter a postfix expression: ");
+    scanf("%s", postfixExpression);
+
+    int result = evaluatePostfix(postfixExpression);
+
+    printf("Result of the postfix expression: %d\n", result);
 
     return 0;
 }

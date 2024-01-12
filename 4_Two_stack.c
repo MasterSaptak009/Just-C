@@ -1,70 +1,80 @@
-#include <iostream>
+//Write a program that implements two stacks using a single array.
 
-class TwoStacks {
-private:
-    int* arr;
-    int size;
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 10
+
+typedef struct {
+    int arr[MAX_SIZE];
     int top1;
     int top2;
+} TwoStacks;
 
-public:
-    TwoStacks(int size) {
-        this->size = size;
-        arr = new int[size];
-        top1 = -1;
-        top2 = size;
-    }
+void initialize(TwoStacks *stacks) {
+    stacks->top1 = -1;
+    stacks->top2 = MAX_SIZE;
+}
 
-    ~TwoStacks() {
-        delete[] arr;
+void push1(TwoStacks *stacks, int value) {
+    if (stacks->top1 < stacks->top2 - 1) {
+        stacks->arr[++stacks->top1] = value;
+        printf("Pushed %d to Stack 1\n", value);
+    } else {
+        printf("Stack Overflow: Cannot push to Stack 1\n");
     }
+}
 
-    void push1(int value) {
-        if (top1 < top2 - 1) {
-            arr[++top1] = value;
-        } else {
-            std::cout << "Stack 1 overflow\n";
-        }
+void push2(TwoStacks *stacks, int value) {
+    if (stacks->top1 < stacks->top2 - 1) {
+        stacks->arr[--stacks->top2] = value;
+        printf("Pushed %d to Stack 2\n", value);
+    } else {
+        printf("Stack Overflow: Cannot push to Stack 2\n");
     }
+}
 
-    void push2(int value) {
-        if (top1 < top2 - 1) {
-            arr[--top2] = value;
-        } else {
-            std::cout << "Stack 2 overflow\n";
-        }
+int pop1(TwoStacks *stacks) {
+    if (stacks->top1 >= 0) {
+        int value = stacks->arr[stacks->top1--];
+        printf("Popped %d from Stack 1\n", value);
+        return value;
+    } else {
+        printf("Stack 1 Underflow: Cannot pop from an empty stack\n");
+        return -1; // indicating underflow
     }
+}
 
-    int pop1() {
-        if (top1 >= 0) {
-            return arr[top1--];
-        } else {
-            std::cout << "Stack 1 underflow\n";
-            return -1;  // Assuming -1 as an error value
-        }
+int pop2(TwoStacks *stacks) {
+    if (stacks->top2 < MAX_SIZE) {
+        int value = stacks->arr[stacks->top2++];
+        printf("Popped %d from Stack 2\n", value);
+        return value;
+    } else {
+        printf("Stack 2 Underflow: Cannot pop from an empty stack\n");
+        return -1; // indicating underflow
     }
-
-    int pop2() {
-        if (top2 < size) {
-            return arr[top2++];
-        } else {
-            std::cout << "Stack 2 underflow\n";
-            return -1;  // Assuming -1 as an error value
-        }
-    }
-};
+}
 
 int main() {
-    TwoStacks twoStacks(5);
+    TwoStacks stacks;
+    initialize(&stacks);
 
-    twoStacks.push1(1);
-    twoStacks.push2(2);
-    twoStacks.push1(3);
-    twoStacks.push2(4);
-    twoStacks.push1(5);
+    push1(&stacks, 1);
+    push1(&stacks, 2);
+    push1(&stacks, 3);
 
-    std::cout << "Popped element from stack 1: " << twoStacks.pop1() << "\n";
-    std::cout << "Popped element from stack 2: " << twoStacks.pop2() << "\n";
+    push2(&stacks, 4);
+    push2(&stacks, 5);
+    push2(&stacks, 6);
+
+    pop1(&stacks);
+    pop1(&stacks);
+    pop1(&stacks);
+
+    pop2(&stacks);
+    pop2(&stacks);
+    pop2(&stacks);
 
     return 0;
 }
