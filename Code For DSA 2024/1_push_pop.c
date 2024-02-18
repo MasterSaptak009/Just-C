@@ -1,7 +1,6 @@
 //Write a program to implement Stack using array and two operations: push and pop
 
 #include <stdio.h>
-
 #define MAX_SIZE 10
 
 struct Stack {
@@ -34,7 +33,7 @@ void display(struct Stack* stack) {
     printf("Stack: ");
     for (int i = 0; i <= stack->top; i++)
         printf("%d ", stack->arr[i]);
-    printf("\n");
+        printf("\n");
 }
 
 int main() {
