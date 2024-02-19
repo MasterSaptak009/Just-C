@@ -45,36 +45,42 @@ more complex algorithms may not be justified.
 */
 
 #include<stdio.h>
+
+// Function to perform insertion sort
 void insertionSort(int arr[],int size){
-    for(int i=1;i<size;i++){
-        int key=arr[i];
-        int j=i-1;
-        while(key<arr[j] && j>=0){
-            arr[j+1]=arr[j];
-            j--;
+    for(int i=1;i<size;i++){ // Iterate over each element of the array
+        int key=arr[i]; // Store the current element to be inserted
+        int j=i-1; // Initialize j to be the index of the previous element
+        while(key<arr[j] && j>=0){ // Move elements greater than key to one position ahead
+            arr[j+1]=arr[j]; // Shift element to the right
+            j--; // Move to the previous element
         }
-        arr[j+1]=key;
+        arr[j+1]=key; // Place the key in its correct position
     }
 }
+
+// Function to print the array
 void printArray(int arr[],int size){
-    for(int i=0;i<size;i++){
-        printf("%d ",arr[i]);
+    for(int i=0;i<size;i++){ // Iterate over each element of the array
+        printf("%d ",arr[i]); // Print the element
     }
-    printf("\n");
+    printf("\n"); // Move to the next line after printing all elements
 }
+
+// Main function
 int main(){
-    int size;
-    printf("Enter the size of the array = ");
-    scanf("%d",&size);
-    int arr[size];
-    printf("Enter the array Elements = ");
-    for(int i=0;i<size;i++){
-        scanf("%d",&arr[i]);
+    int size; // Declare variable to store the size of the array
+    printf("Enter the size of the array = "); // Prompt the user to enter the size of the array
+    scanf("%d",&size); // Read the size of the array from the user
+    int arr[size]; // Declare an array of given size
+    printf("Enter the array Elements = "); // Prompt the user to enter the array elements
+    for(int i=0;i<size;i++){ // Iterate over each element of the array
+        scanf("%d",&arr[i]); // Read the array element from the user
     }
-    printf("Before Sorting : ");
-    printArray(arr,size);
-    insertionSort(arr,size);
-    printf("After Sorting : ");
-    printArray(arr,size);
-    return 0;
+    printf("Before Sorting : "); // Print message indicating array before sorting
+    printArray(arr,size); // Print the array before sorting
+    insertionSort(arr,size); // Call insertion sort function to sort the array
+    printf("After Sorting : "); // Print message indicating array after sorting
+    printArray(arr,size); // Print the array after sorting
+    return 0; // Return 0 to indicate successful completion of the program
 }

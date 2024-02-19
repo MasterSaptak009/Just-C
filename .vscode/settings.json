@@ -18,5 +18,6 @@
         "Optimized_Bubble_Sort.C": "cpp",
         "Selection_Sort.C": "cpp",
         "Linked_List_Insertion_at_beginning_and_end.C": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
