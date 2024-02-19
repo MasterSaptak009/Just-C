@@ -19,45 +19,58 @@
          during the selection process can change the relative order of equal elements, 
          so it does not guarantee stability.
 */
+
+
 #include<stdio.h>
-void swap(int *a,int *b){
-    int temp=*a;
-    *a=*b;
-    *b=temp;
+
+// Function to swap two integers using pointers
+void swap(int *a, int *b){
+    int temp = *a; // Store the value of a in temp
+    *a = *b;       // Assign the value of b to a
+    *b = temp;     // Assign the value of temp to b, effectively swapping the values
 }
-void selectionSort(int arr[],int size){
-    int i,j,min_idx;
-    for(int i=0;i<size-1;i++){
-        min_idx=i;
-        for(int j=i+1;j<size;j++){
-            if(arr[j]<arr[min_idx]){
-                min_idx=j;
+
+// Function to perform selection sort on an array
+void selectionSort(int arr[], int size){
+    int i, j, min_idx;
+    // Iterate through the array
+    for(i = 0; i < size - 1; i++){
+        min_idx = i; // Assume the current index as the minimum
+        // Iterate through the unsorted part of the array to find the minimum element
+        for(j = i + 1; j < size; j++){
+            if(arr[j] < arr[min_idx]){ // If a smaller element is found
+                min_idx = j; // Update the index of the minimum element
             }
         }
-        if(min_idx!=i){
-        swap(&arr[min_idx],&arr[i]);
+        // If the minimum element is not at its correct position, swap it with the current element
+        if(min_idx != i){
+            swap(&arr[min_idx], &arr[i]); // Pass the addresses of the elements to swap
         }
     }
 }
-void printArray(int arr[],int size){
-    for(int i=0;i<size;i++){
-        printf("%d ",arr[i]);
+
+// Function to print the elements of an array
+void printArray(int arr[], int size){
+    for(int i = 0; i < size; i++){
+        printf("%d ", arr[i]); // Print each element of the array
     }
-    printf("\n");
+    printf("\n"); // Move to the next line after printing all elements
 }
+
 int main(){
     int size;
     printf("Enter the size of the array = ");
-    scanf("%d",&size);
-    int arr[size];
-    printf("Enter the array elements :");
-    for(int i=0;i<size;i++){
-        scanf("%d",&arr[i]);
+    scanf("%d", &size); // Input the size of the array from the user
+    int arr[size]; // Declare an array of the specified size
+    printf("Enter the array elements: ");
+    // Input the elements of the array from the user
+    for(int i = 0; i < size; i++){
+        scanf("%d", &arr[i]);
     }
     printf("Before sorting the array is ");
-    printArray(arr,size);
-    selectionSort(arr,size);
+    printArray(arr, size); // Print the array before sorting
+    selectionSort(arr, size); // Sort the array using selection sort
     printf("After sorting the array is ");
-    printArray(arr,size);
+    printArray(arr, size); // Print the array after sorting
     return 0;
 }
